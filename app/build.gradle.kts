@@ -13,6 +13,13 @@ android {
     }
 
     defaultConfig {
+
+        buildConfigField(
+            "String",
+            "TMDB_API_KEY",
+            "\"${project.findProperty("TMDB_API_KEY") ?: ""}\""
+        )
+
         applicationId = "com.amro.movies"
         minSdk = 26
         targetSdk = 36
