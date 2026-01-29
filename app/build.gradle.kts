@@ -14,6 +14,8 @@ android {
 
     defaultConfig {
 
+        android.buildFeatures.buildConfig = true
+
         buildConfigField(
             "String",
             "TMDB_API_KEY",
