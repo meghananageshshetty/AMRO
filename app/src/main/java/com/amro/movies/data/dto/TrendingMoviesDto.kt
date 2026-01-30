@@ -12,6 +12,7 @@ data class TrendingMoviesDto(
 data class MovieDto(
     val id: Int,
     val title: String,
+    val popularity: Double,
     @field:Json(name = "genre_ids") val genreIds: List<Int>,
     @field:Json(name = "poster_path") val poster: String?,
     @field:Json(name = "release_date") val releaseDate: String
