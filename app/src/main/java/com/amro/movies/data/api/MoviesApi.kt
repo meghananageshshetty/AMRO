@@ -8,12 +8,12 @@ import retrofit2.http.Path
 
 interface MovieApi {
 
-    @GET("trending/movie/{timeWindow}")
+    @GET("trending/movie/{time_window}")
     suspend fun trendingMovies(
         @Path("time_window") timeWindow: String = "week"
     ): TrendingMoviesDto
 
-    @GET("movie/{movieId}")
+    @GET("movie/{movie_id}")
     suspend fun movieDetails(
         @Path("movie_id") movieId: Int,
     ): MovieDetailsDto

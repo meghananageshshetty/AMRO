@@ -55,14 +55,15 @@ class TrendingMoviesViewModel @Inject constructor(
                 isLoading = false,
                 errorMessage = if (movies.isEmpty()) "No movies found." else null,
                 genres = genres,
+                visibleMovies = movies,
                 allMovies = movies
             )
-            _state.value = updated.copy(visibleMovies = applyFilters(updated))
+            _state.value = updated.copy()
         }
     }
 
     fun onGenreSelected(genreId: Int?) {
-       //TODO add genre selection logic
+        //TODO add genre selection logic
     }
 
     fun onSortOptionSelected(option: SortOption) {
@@ -71,7 +72,7 @@ class TrendingMoviesViewModel @Inject constructor(
     }
 
     fun onSortOrderSelected(order: SortOrder) {
-      //TODO add sort order implementation
+        //TODO add sort order implementation
     }
 
     private fun applyFilters(state: TrendingMoviesState): List<TrendingMovie> {

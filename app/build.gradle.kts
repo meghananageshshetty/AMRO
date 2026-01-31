@@ -1,3 +1,12 @@
+import java.util.Properties
+
+val localProps = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+
+val tmdbApiKey: String = (localProps.getProperty("TMDB_API_KEY") ?: "").trim()
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -16,7 +25,7 @@ android {
         buildConfigField(
             "String",
             "TMDB_API_KEY",
-            "\"${project.findProperty("TMDB_API_KEY") ?: ""}\""
+            "\"$tmdbApiKey\""
         )
 
         applicationId = "com.amro.movies"
@@ -63,6 +72,9 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.moshi)
+    ksp(libs.moshi.kotlin.codegen)
     implementation(libs.okHttp)
     implementation(libs.okHttp.logging.interceptor)
     implementation(libs.hilt.android)

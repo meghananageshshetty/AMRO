@@ -13,7 +13,7 @@ data class MovieDto(
     val id: Int,
     val title: String,
     val popularity: Double,
-    @field:Json(name = "genre_ids") val genreIds: List<Int>,
-    @field:Json(name = "poster_path") val posterPath: String?,
-    @field:Json(name = "release_date") val releaseDate: String
+    @Json(name = "genre_ids") val genreIds: List<Int> = emptyList(),
+    @Json(name = "poster_path") val posterPath: String?,
+    @Json(name = "release_date") val releaseDate: String?
 )
