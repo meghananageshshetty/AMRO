@@ -2,10 +2,15 @@ package com.amro.movies.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val AmroBlue = Color(0xFF0E1721)
+val AmroCard = Color(0xFF1B2531)
+val AmroYellow = Color(0xFFF9B233)
+val AmroTextPrimary = Color(0xFFE6EDF3)
+val AmroTextSecondary = Color(0xFFB5BDC5)
+val AmroDivider = Color(0xFF2B3745)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val AmroLightBackground = Color(0xFFF8FAFC)
+val AmroLightSurface = Color(0xFFFFFFFF)
+val AmroLightPrimaryText = Color(0xFF0E1721)
+val AmroLightSecondaryText = Color(0xFF475569)
+val AmroLightDivider = Color(0xFFE2E8F0)
