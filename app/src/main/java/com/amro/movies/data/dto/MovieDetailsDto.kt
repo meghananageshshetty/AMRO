@@ -14,10 +14,10 @@ data class MovieDetailsDto(
     val budget: Long,
     val genres: List<GenreDto>,
     val revenue: Long,
-    @field:Json(name = "vote_average") val voteAverage: Double,
-    @field:Json(name = "vote_count") val voteCount: Int,
-    @field:Json(name = "poster_path") val posterPath: String,
-    @field:Json(name = "imdb_id") val imdbId: String,
-    @field:Json(name = "release_date") val releaseDate: String
+    @Json(name = "vote_average") val voteAverage: Double,
+    @Json(name = "vote_count") val voteCount: Int,
+    @Json(name = "poster_path") val posterPath: String,
+    @Json(name = "imdb_id") val imdbId: String,
+    @Json(name = "release_date") val releaseDate: String
 
 )

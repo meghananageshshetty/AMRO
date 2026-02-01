@@ -1,6 +1,5 @@
 package com.amro.movies.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -9,28 +8,30 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+
+private val DarkColorsScheme = darkColorScheme(
+    primary = AmroYellow,
+    secondary = AmroYellow,
+    background = AmroBlue,
+    surface = AmroCard,
+    onPrimary = Color.Black,
+    onSecondary = Color.Black,
+    onBackground = AmroTextPrimary,
+    onSurface = AmroTextPrimary
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val LightColorsScheme = lightColorScheme(
+    primary = AmroYellow,
+    secondary = AmroYellow,
+    background = AmroLightBackground,
+    surface = AmroLightSurface,
+    onPrimary = Color.Black,
+    onSecondary = Color.Black,
+    onBackground = AmroLightPrimaryText,
+    onSurface = AmroLightPrimaryText
 )
 
 @Composable
@@ -46,8 +47,8 @@ fun AMROTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> DarkColorsScheme
+        else -> LightColorsScheme
     }
 
     MaterialTheme(

@@ -1,17 +1,23 @@
-import com.android.tools.r8.internal.im
+import java.util.Properties
+
+val localProps = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+
+val tmdbApiKey: String = (localProps.getProperty("TMDB_API_KEY") ?: "").trim()
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "com.amro.movies"
-    compileSdk {
-        version = release(36)
-    }
-
+    compileSdk = 36
     defaultConfig {
 
         android.buildFeatures.buildConfig = true
@@ -19,7 +25,7 @@ android {
         buildConfigField(
             "String",
             "TMDB_API_KEY",
-            "\"${project.findProperty("TMDB_API_KEY") ?: ""}\""
+            "\"$tmdbApiKey\""
         )
 
         applicationId = "com.amro.movies"
@@ -47,6 +53,9 @@ android {
     buildFeatures {
         compose = true
     }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
 
 dependencies {
@@ -58,13 +67,20 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.moshi)
+    ksp(libs.moshi.kotlin.codegen)
     implementation(libs.okHttp)
     implementation(libs.okHttp.logging.interceptor)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.hilt.compose)
+    implementation(libs.coil.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
