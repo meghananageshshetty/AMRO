@@ -13,9 +13,14 @@ import kotlinx.coroutines.async
 class MovieRepositoryImpl @Inject constructor(
     private val api: MovieApi
 ) : MovieRepository {
+
+    private var cachedGenres: List<Genre>? = null
     override suspend fun getGenres(): List<Genre> {
+        cachedGenres?.let { return it }
         val response = api.genres()
-        return response.genres.map { it.toDomain() }
+        val genres = response.genres.map { it.toDomain() }
+        cachedGenres = genres
+        return genres
     }
 
     override suspend fun getTrendingMovies(): List<TrendingMovie> {
