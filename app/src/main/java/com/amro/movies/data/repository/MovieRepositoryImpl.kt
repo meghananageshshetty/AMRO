@@ -7,6 +7,7 @@ import com.amro.movies.domain.model.MovieDetail
 import com.amro.movies.domain.model.TrendingMovie
 import com.amro.movies.domain.repository.MovieRepository
 import jakarta.inject.Inject
+import kotlinx.coroutines.async
 
 
 class MovieRepositoryImpl @Inject constructor(
@@ -19,8 +20,27 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getTrendingMovies(): List<TrendingMovie> {
         val genres = getGenres().associateBy { it.id }
-        val response = api.trendingMovies()
-        return response.results.map { it.toDomain(genres) }
+
+        val results = kotlinx.coroutines.supervisorScope {
+            // Launch 5 requests in parallel; if one fails, continue with others
+            val deferredPages = (1..5).map { page ->
+                async {
+                    try {
+                        api.trendingMovies(page = page).results
+                    } catch (e: Exception) {
+                        emptyList()
+                    }
+                }
+            }
+
+            // Await all requests and merge into a single list
+            deferredPages.flatMap { it.await() }
+        }
+
+        return results
+            //fetch top 100
+            .take(100)
+            .map { it.toDomain(genres) }
     }
 
     override suspend fun getMovieDetail(movieId: Int): MovieDetail {
