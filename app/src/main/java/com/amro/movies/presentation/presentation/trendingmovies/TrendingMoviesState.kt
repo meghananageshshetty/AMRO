@@ -1,4 +1,4 @@
-package com.amro.movies.presentation.trendingmovies
+package com.amro.movies.presentation.presentation.trendingmovies
 
 import com.amro.movies.domain.model.Genre
 import com.amro.movies.domain.model.TrendingMovie

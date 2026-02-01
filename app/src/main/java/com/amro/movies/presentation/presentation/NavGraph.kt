@@ -1,9 +1,11 @@
-package com.amro.movies.presentation.trendingmovies
+package com.amro.movies.presentation.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.amro.movies.presentation.presentation.moviedetails.MovieDetailRoute
+import com.amro.movies.presentation.presentation.trendingmovies.TrendingMoviesRoute
 
 object Routes {
     const val TRENDING_MOVIE = "trending_movie"
@@ -20,6 +22,10 @@ fun NavGraph(navController: NavHostController) {
                 }
             )
         }
-      //TODO add detail screen route
+        composable("${Routes.MOVIE_DETAIL}/{movieId}") {
+            MovieDetailRoute(
+                onBack = { navController.popBackStack() }
+            )
+        }
     }
 }

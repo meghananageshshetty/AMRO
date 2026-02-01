@@ -1,4 +1,4 @@
-package com.amro.movies.presentation.trendingmovies
+package com.amro.movies.presentation.presentation.trendingmovies
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.amro.movies.presentation.presentation.trendingmovies.TrendingMoviesViewModel
 
 
 @Composable

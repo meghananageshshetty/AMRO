@@ -1,4 +1,4 @@
-package com.amro.movies.presentation.trendingmovies
+package com.amro.movies.presentation.presentation.trendingmovies
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

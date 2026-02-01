@@ -1,4 +1,4 @@
-package com.amro.movies.presentation.trendingmovies
+package com.amro.movies.presentation.presentation.trendingmovies
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
