@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -88,7 +89,7 @@ fun MovieDetailScreen(
         when {
             state.isLoading -> {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(modifier = Modifier.testTag("loading"))
                 }
             }
 
@@ -134,6 +135,7 @@ private fun MovieDetailContent(movie: MovieDetail) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(210.dp)
+                .testTag("POSTER_IMAGE")
                 .clip(RoundedCornerShape(16.dp))
         )
 
@@ -176,7 +178,9 @@ private fun MovieDetailContent(movie: MovieDetail) {
         Spacer(modifier = Modifier.height(12.dp))
 
         LazyColumn(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .testTag("DETAILS_LIST"),
             contentPadding = PaddingValues(bottom = 16.dp)
         ) {
 
@@ -236,6 +240,7 @@ private fun MovieDetailContent(movie: MovieDetail) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp)
+                        .testTag("IMDB")
                 ) {
                     Text(text = stringResource(R.string.view_on_imdb))
                 }
