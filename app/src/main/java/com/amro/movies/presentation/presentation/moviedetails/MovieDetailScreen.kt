@@ -36,10 +36,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.amro.movies.R
 import com.amro.movies.domain.model.MovieDetail
 
 
@@ -65,12 +67,12 @@ fun MovieDetailScreen(
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBar(
-            title = { Text(text = "Details") },
+            title = { Text(text = stringResource(R.string.details)) },
             navigationIcon = {
                 IconButton(onClick = onBack) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back",
+                        contentDescription = stringResource(R.string.back),
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
@@ -90,7 +92,7 @@ fun MovieDetailScreen(
                 }
             }
 
-            state.errorMessage != null -> {
+            state.errorType != null -> {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -98,10 +100,13 @@ fun MovieDetailScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = state.errorMessage, color = MaterialTheme.colorScheme.onBackground)
+                    Text(
+                        text = stringResource(state.errorType.errorMessage),
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = onRetry) {
-                        Text(text = "Retry")
+                        Text(text = stringResource(R.string.retry))
                     }
                 }
             }
@@ -184,7 +189,7 @@ private fun MovieDetailContent(movie: MovieDetail) {
 
             item {
                 DetailRow(
-                    label = "Rating",
+                    label = stringResource(R.string.rating),
                     value = "${movie.voteAverage} (${movie.voteCount} votes)"
                 )
                 HorizontalDivider(modifier = Modifier.padding(vertical = 6.dp))
@@ -192,29 +197,34 @@ private fun MovieDetailContent(movie: MovieDetail) {
             }
             item {
                 DetailRow(
-                    label = "Budget",
+                    label = stringResource(R.string.budget),
                     value = movie.budget?.let { "$${"%,d".format(it)}" } ?: "-")
                 HorizontalDivider(modifier = Modifier.padding(vertical = 6.dp))
             }
             item {
                 DetailRow(
-                    label = "Revenue",
+                    label = stringResource(R.string.revenue),
                     value = movie.revenue?.let { "$${"%,d".format(it)}" } ?: "-")
                 HorizontalDivider(modifier = Modifier.padding(vertical = 6.dp))
 
             }
             item {
-                DetailRow(label = "Runtime", value = movie.runtime?.let { "$it minutes" } ?: "-")
+                DetailRow(
+                    label = stringResource(R.string.runtime),
+                    value = movie.runtime?.let { "$it minutes" } ?: "-")
                 HorizontalDivider(modifier = Modifier.padding(vertical = 6.dp))
 
             }
             item {
-                DetailRow(label = "Release Date", value = movie.releaseDate ?: "-")
+                DetailRow(
+                    label = stringResource(R.string.release_date),
+                    value = movie.releaseDate ?: "-"
+                )
                 HorizontalDivider(modifier = Modifier.padding(vertical = 6.dp))
 
             }
             item {
-                DetailRow(label = "Status", value = movie.status ?: "-")
+                DetailRow(label = stringResource(R.string.status), value = movie.status ?: "-")
                 Spacer(modifier = Modifier.height(16.dp))
 
             }
@@ -227,7 +237,7 @@ private fun MovieDetailContent(movie: MovieDetail) {
                         .fillMaxWidth()
                         .height(48.dp)
                 ) {
-                    Text(text = "View on imdb")
+                    Text(text = stringResource(R.string.view_on_imdb))
                 }
             }
         }

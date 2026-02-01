@@ -2,6 +2,7 @@ package com.amro.movies.presentation.presentation.trendingmovies
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.amro.movies.BuildConfig
 import com.amro.movies.domain.model.TrendingMovie
 import com.amro.movies.domain.usecase.GetGenres
 import com.amro.movies.domain.usecase.GetTrendingMovies
@@ -27,7 +28,11 @@ class TrendingMoviesViewModel @Inject constructor(
     }
 
     fun load() {
-        _state.update { it.copy(isLoading = true, errorMessage = null) }
+        if (BuildConfig.TMDB_API_KEY.isBlank()) {
+            _state.update { it.copy(errorType = TrendingMovieErrorType.MISSING_API_KEY) }
+            return
+        }
+        _state.update { it.copy(isLoading = true, errorType = null) }
         viewModelScope.launch {
             val genresResultDeferred = async { runCatching { getGenres() } }
             val moviesResultDeferred = async { runCatching { getTrendingMovies() } }
@@ -42,7 +47,7 @@ class TrendingMoviesViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = "Unable to load movies. Please check your connection.",
+                        errorType = TrendingMovieErrorType.NETWORK_ERROR,
                         genres = genres,
                         allMovies = emptyList(),
                         visibleMovies = emptyList()
@@ -53,7 +58,7 @@ class TrendingMoviesViewModel @Inject constructor(
 
             val updated = _state.value.copy(
                 isLoading = false,
-                errorMessage = if (movies.isEmpty()) "No movies found." else null,
+                errorType = if (movies.isEmpty()) TrendingMovieErrorType.TRENDING_MOVIES_NOT_FOUND else null,
                 genres = genres,
                 allMovies = movies
             )

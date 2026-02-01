@@ -24,7 +24,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.amro.movies.R
 import com.amro.movies.domain.model.Genre
 import com.amro.movies.presentation.presentation.trendingmovies.SortOption
 import com.amro.movies.presentation.presentation.trendingmovies.SortOrder
@@ -56,7 +58,9 @@ fun FilterSortRow(
             modifier = Modifier.weight(1f)
         ) {
             OutlinedTextField(
-                value = genres.firstOrNull { it.id == selectedGenreId }?.name ?: "Genre",
+                value = genres.firstOrNull { it.id == selectedGenreId }?.name ?: stringResource(
+                    id = R.string.genre
+                ),
                 onValueChange = {},
                 readOnly = true,
                 singleLine = true,
@@ -73,7 +77,7 @@ fun FilterSortRow(
                 onDismissRequest = { genreExpanded = false }
             ) {
                 DropdownMenuItem(
-                    text = { Text("All") },
+                    text = { Text(stringResource(id = R.string.all)) },
                     onClick = {
                         onGenreSelected(null)
                         genreExpanded = false
@@ -151,13 +155,13 @@ private fun SortOrderToggle(
             selected = sortOrder == SortOrder.ASC,
             onClick = { onSortOrderSelected(SortOrder.ASC) },
             shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2),
-            label = { Text("Asc", maxLines = 1) }
+            label = { Text(stringResource(id = R.string.asc), maxLines = 1) }
         )
         SegmentedButton(
             selected = sortOrder == SortOrder.DESC,
             onClick = { onSortOrderSelected(SortOrder.DESC) },
             shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
-            label = { Text("Des", maxLines = 1) }
+            label = { Text(stringResource(id = R.string.des), maxLines = 1) }
         )
     }
 }
