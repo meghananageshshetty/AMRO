@@ -55,27 +55,46 @@ class TrendingMoviesViewModel @Inject constructor(
                 isLoading = false,
                 errorMessage = if (movies.isEmpty()) "No movies found." else null,
                 genres = genres,
-                visibleMovies = movies,
                 allMovies = movies
             )
-            _state.value = updated.copy()
+            _state.value = updated.copy(visibleMovies = applyFilters(updated))
         }
     }
 
     fun onGenreSelected(genreId: Int?) {
-        //TODO add genre selection logic
+        _state.update {
+            val updated = it.copy(selectedGenreId = genreId)
+            updated.copy(visibleMovies = applyFilters(updated))
+        }
     }
 
     fun onSortOptionSelected(option: SortOption) {
-        //TODO add sort option implementation
-
+        _state.update {
+            val updated = it.copy(sortOption = option)
+            updated.copy(visibleMovies = applyFilters(updated))
+        }
     }
 
     fun onSortOrderSelected(order: SortOrder) {
-        //TODO add sort order implementation
+        _state.update {
+            val updated = it.copy(sortOrder = order)
+            updated.copy(visibleMovies = applyFilters(updated))
+        }
     }
 
     private fun applyFilters(state: TrendingMoviesState): List<TrendingMovie> {
-        return TODO("Provide the return value")
+        val filtered = state.allMovies.filter { movie ->
+            state.selectedGenreId?.let { genreId ->
+                movie.genres.any { it.id == genreId }
+            } ?: true
+        }
+
+        val sorted = when (state.sortOption) {
+            SortOption.POPULARITY -> filtered.sortedBy { it.popularity }
+            SortOption.TITLE -> filtered.sortedBy { it.title.lowercase() }
+            SortOption.RELEASE_DATE -> filtered.sortedBy { it.releaseDate ?: "" }
+        }
+
+        return if (state.sortOrder == SortOrder.DESC) sorted.reversed() else sorted
     }
 }

@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.amro.movies.presentation.presentation.trendingmovies.TrendingMoviesViewModel
+import com.amro.movies.presentation.presentation.sortfilter.FilterSortRow
 
 
 @Composable
@@ -58,13 +58,21 @@ fun TrendingMoviesList(
             TopAppBar(
                 title = {
                     Text(
-                        text ="Trending movies this week",
+                        text = "Trending movies this week",
                         fontWeight = FontWeight.SemiBold
                     )
                 }
             )
 
-           //TODO add filter & sort options
+            FilterSortRow(
+                genres = state.genres,
+                selectedGenreId = state.selectedGenreId,
+                sortOption = state.sortOption,
+                sortOrder = state.sortOrder,
+                onGenreSelected = onGenreSelected,
+                onSortOptionSelected = onSortOptionSelected,
+                onSortOrderSelected = onSortOrderSelected
+            )
 
             when {
                 state.isLoading -> {
@@ -81,7 +89,10 @@ fun TrendingMoviesList(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = state.errorMessage, color = MaterialTheme.colorScheme.onBackground)
+                        Text(
+                            text = state.errorMessage,
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(onClick = onRetry) {
                             Text(text = "retry")
