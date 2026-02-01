@@ -27,7 +27,7 @@ class TrendingMoviesViewModel @Inject constructor(
     }
 
     fun load() {
-        _state.update { it.copy(isLoading = true, errorMessage = null) }
+        _state.update { it.copy(isLoading = true, errorType = null) }
         viewModelScope.launch {
             val genresResultDeferred = async { runCatching { getGenres() } }
             val moviesResultDeferred = async { runCatching { getTrendingMovies() } }
@@ -42,7 +42,7 @@ class TrendingMoviesViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = "Unable to load movies. Please check your connection.",
+                        errorType = TrendingMovieErrorType.NETWORK_ERROR,
                         genres = genres,
                         allMovies = emptyList(),
                         visibleMovies = emptyList()
@@ -53,7 +53,7 @@ class TrendingMoviesViewModel @Inject constructor(
 
             val updated = _state.value.copy(
                 isLoading = false,
-                errorMessage = if (movies.isEmpty()) "No movies found." else null,
+                errorType = if (movies.isEmpty()) TrendingMovieErrorType.TRENDING_MOVIES_NOT_FOUND else null,
                 genres = genres,
                 allMovies = movies
             )

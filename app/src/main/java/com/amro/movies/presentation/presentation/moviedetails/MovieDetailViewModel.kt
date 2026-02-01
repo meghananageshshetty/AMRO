@@ -28,10 +28,10 @@ class MovieDetailViewModel @Inject constructor(
 
     fun load() {
         if (movieId == -1) {
-            _state.update { it.copy(errorMessage = "Movie not found.") }
+            _state.update { it.copy(errorType = MovieDetailErrorType.MOVIE_ID_INVALID) }
             return
         }
-        _state.update { it.copy(isLoading = true, errorMessage = null) }
+        _state.update { it.copy(isLoading = true, errorType = null) }
         viewModelScope.launch {
             runCatching { getMovieDetail(movieId) }
                 .onSuccess { movie ->
@@ -41,7 +41,7 @@ class MovieDetailViewModel @Inject constructor(
                     _state.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage = "Unable to load movie details. Please try again."
+                            errorType = MovieDetailErrorType.MOVIE_DETAIL_NOT_FOUND,
                         )
                     }
                 }

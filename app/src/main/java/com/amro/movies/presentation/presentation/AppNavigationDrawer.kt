@@ -12,7 +12,9 @@ import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.amro.movies.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -21,7 +23,7 @@ fun AppNavigationDrawer(onHomeClick: () -> Unit) {
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "Menu",
+            text = stringResource(R.string.menu_title),
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(16.dp)
         )
@@ -29,7 +31,7 @@ fun AppNavigationDrawer(onHomeClick: () -> Unit) {
         Divider()
 
         NavigationDrawerItem(
-            label = { Text("User Profile") },
+            label = { Text(stringResource(R.string.user_profile_title)) },
             selected = false,
             onClick = onHomeClick,
             modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
