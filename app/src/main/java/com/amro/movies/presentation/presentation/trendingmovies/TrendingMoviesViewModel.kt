@@ -2,6 +2,7 @@ package com.amro.movies.presentation.presentation.trendingmovies
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.amro.movies.BuildConfig
 import com.amro.movies.domain.model.TrendingMovie
 import com.amro.movies.domain.usecase.GetGenres
 import com.amro.movies.domain.usecase.GetTrendingMovies
@@ -27,6 +28,10 @@ class TrendingMoviesViewModel @Inject constructor(
     }
 
     fun load() {
+        if (BuildConfig.TMDB_API_KEY.isBlank()) {
+            _state.update { it.copy(errorType = TrendingMovieErrorType.MISSING_API_KEY) }
+            return
+        }
         _state.update { it.copy(isLoading = true, errorType = null) }
         viewModelScope.launch {
             val genresResultDeferred = async { runCatching { getGenres() } }

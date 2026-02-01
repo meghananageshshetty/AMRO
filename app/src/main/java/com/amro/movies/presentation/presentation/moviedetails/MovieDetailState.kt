@@ -12,7 +12,8 @@ data class MovieDetailState(
 
 enum class MovieDetailErrorType(val errorMessage: Int) {
     MOVIE_ID_INVALID(R.string.error_movie_id_invalid),
-    MOVIE_DETAIL_NOT_FOUND(R.string.error_loading_movie_details)
+    MOVIE_DETAIL_NOT_FOUND(R.string.error_loading_movie_details),
+    MISSING_API_KEY(R.string.missing_api_key)
 }
 
 

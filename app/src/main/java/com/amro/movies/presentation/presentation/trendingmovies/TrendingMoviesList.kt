@@ -34,6 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.amro.movies.R
 import com.amro.movies.presentation.presentation.AppNavigationDrawer
 import com.amro.movies.presentation.presentation.sortfilter.FilterSortRow
 import kotlinx.coroutines.launch
@@ -84,7 +85,7 @@ fun TrendingMoviesList(
                 TopAppBar(
                     title = {
                         Text(
-                            text = "Trending movies this week",
+                            text = stringResource(R.string.trending_movies_this_week),
                             fontWeight = FontWeight.SemiBold
                         )
                     },
@@ -92,7 +93,7 @@ fun TrendingMoviesList(
                         IconButton(onClick = { scope.launch { drawerState.open() } }) {
                             Icon(
                                 imageVector = Icons.Filled.Menu,
-                                contentDescription = "Open drawer"
+                                contentDescription = stringResource(R.string.open_drawer)
                             )
                         }
                     }
@@ -141,7 +142,7 @@ fun TrendingMoviesList(
                                 )
                                 Spacer(modifier = Modifier.height(16.dp))
                                 Button(onClick = onRetry) {
-                                    Text(text = "retry")
+                                    Text(text = stringResource(R.string.retry))
                                 }
                             }
                         }
@@ -166,4 +167,3 @@ fun TrendingMoviesList(
         }
     }
 }
-

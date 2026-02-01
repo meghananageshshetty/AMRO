@@ -3,6 +3,7 @@ package com.amro.movies.presentation.presentation.moviedetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.amro.movies.BuildConfig
 import com.amro.movies.domain.usecase.GetMovieDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +28,11 @@ class MovieDetailViewModel @Inject constructor(
     }
 
     fun load() {
+        if (BuildConfig.TMDB_API_KEY.isBlank()) {
+            _state.update { it.copy(errorType = MovieDetailErrorType.MISSING_API_KEY) }
+            return
+        }
+
         if (movieId == -1) {
             _state.update { it.copy(errorType = MovieDetailErrorType.MOVIE_ID_INVALID) }
             return

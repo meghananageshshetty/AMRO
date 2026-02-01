@@ -17,7 +17,9 @@ enum class SortOrder(val label: String) {
 
 enum class TrendingMovieErrorType(val errorMessage: Int) {
     NETWORK_ERROR(R.string.network_error_loading_movies),
-    TRENDING_MOVIES_NOT_FOUND(R.string.error_loading_trending_movies)
+    TRENDING_MOVIES_NOT_FOUND(R.string.error_loading_trending_movies),
+    MISSING_API_KEY(R.string.missing_api_key)
+
 }
 
 data class TrendingMoviesState(
