@@ -1,5 +1,6 @@
 package com.amro.movies.presentation.presentation.trendingmovies
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amro.movies.domain.model.TrendingMovie
@@ -58,6 +59,7 @@ class TrendingMoviesViewModel @Inject constructor(
                 visibleMovies = movies,
                 allMovies = movies
             )
+
             _state.value = updated.copy()
         }
     }
