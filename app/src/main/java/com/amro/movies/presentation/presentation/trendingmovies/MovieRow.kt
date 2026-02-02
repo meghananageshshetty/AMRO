@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -38,6 +39,8 @@ fun MovieRow(movie: TrendingMovie, onClick: () -> Unit) {
             modifier = Modifier
                 .size(84.dp, 118.dp)
                 .clip(RoundedCornerShape(12.dp))
+                .testTag("POSTER_IMAGE")
+
         )
         Column(modifier = Modifier.padding(start = 12.dp)) {
             Text(
