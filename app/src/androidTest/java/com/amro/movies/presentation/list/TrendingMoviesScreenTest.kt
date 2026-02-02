@@ -23,24 +23,24 @@ class TrendingMoviesScreenTest {
     val composeRule = createComposeRule()
 
     companion object {
-
-        private const val MOVIE_TITLE = "Movie_title"
-        private const val MOVIE_ID = 1
-
-        private val GENRE = Genre(1, "Genre")
-
-        private const val POSTER_URL = "poster/url.jpg"
-        private const val RELEASE_DATE = "2024-03-01"
-
-        private const val POPULARITY = 99.0
+        private const val MOVIE_TITLE = "The Wrecking Crew"
+        private val GENRE_ACTION = Genre(28, "Action")
+        private val GENRE_COMEDY = Genre(35, "Comedy")
+        private val GENRE_CRIME = Genre(80, "Crime")
+        private val GENRE_MYSTERY = Genre(9648, "Mystery")
 
         private val TRENDING_MOVIE = TrendingMovie(
-            MOVIE_ID,
-            MOVIE_TITLE,
-            listOf(GENRE),
-            POSTER_URL,
-            RELEASE_DATE,
-            POPULARITY
+            id = 1168190,
+            title = MOVIE_TITLE,
+            genres = listOf(
+                GENRE_ACTION,
+                GENRE_COMEDY,
+                GENRE_CRIME,
+                GENRE_MYSTERY
+            ),
+            posterUrl = "/gbVwHl4YPSq6BcC92TQpe7qUTh6.jpg",
+            releaseDate = "2026-01-28",
+            popularity = 584.6058
         )
     }
 
@@ -58,7 +58,7 @@ class TrendingMoviesScreenTest {
                         errorType = null,
                         allMovies = movies,
                         visibleMovies = movies,
-                        genres = listOf(GENRE)
+                        genres = listOf(GENRE_ACTION)
                     ),
                     onRetry = {},
                     onMovieClick = {},
@@ -70,7 +70,7 @@ class TrendingMoviesScreenTest {
         }
         composeRule.onNodeWithTag("POSTER_IMAGE",useUnmergedTree = true).assertIsDisplayed()
         composeRule.onNodeWithText(MOVIE_TITLE).assertIsDisplayed()
-        composeRule.onNodeWithText(GENRE.name).assertIsDisplayed()
+        composeRule.onNodeWithText(listOfNotNull(TRENDING_MOVIE.releaseDate?.take(4), TRENDING_MOVIE.genres.joinToString { it.name }.takeIf { it.isNotBlank() }).joinToString(" • "),).assertIsDisplayed()
     }
 
     @Test
@@ -134,7 +134,7 @@ class TrendingMoviesScreenTest {
                         errorType = null,
                         allMovies = movies,
                         visibleMovies = movies,
-                        genres = listOf(GENRE)
+                        genres = listOf(GENRE_ACTION)
                     ),
                     onRetry = {},
                     onMovieClick = { clickedId = it },
@@ -146,6 +146,6 @@ class TrendingMoviesScreenTest {
         }
 
         composeRule.onNodeWithText(MOVIE_TITLE).performClick()
-        assertEquals(1, clickedId)
+        assertEquals(TRENDING_MOVIE.id, clickedId)
     }
 }

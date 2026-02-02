@@ -2,6 +2,7 @@ package com.amro.movies.presentation.detail
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
@@ -26,38 +27,39 @@ class MovieDetailScreenTest {
     val composeRule = createComposeRule()
 
     companion object {
-
-        private const val MOVIE_TITLE = "Movie_title"
-
-        private const val MOVIE_TAGLINE = "Movie_tagline"
-
-        private const val MOVIE_OVERVIEW = "Movie_overview"
-        private const val MOVIE_ID = 1
-
-        private val GENRE = Genre(1, "Genre")
-
-        private const val POSTER_URL = "poster/url.jpg"
-        private const val RELEASE_DATE = "2024-03-01"
-
+        private const val MOVIE_TITLE = "The Wrecking Crew"
+        private const val MOVIE_TAGLINE = "Estranged half-brothers reunite"
+        private const val MOVIE_OVERVIEW =
+            "Estranged half-brothers Jonny and James reunite after their father's mysterious death. " +
+                    "As they search for the truth, buried secrets reveal a conspiracy threatening to tear their family apart."
+        private val GENRE_ACTION = Genre(28, "Action")
+        private val GENRE_COMEDY = Genre(35, "Comedy")
+        private val GENRE_CRIME = Genre(80, "Crime")
+        private val GENRE_MYSTERY = Genre(9648, "Mystery")
 
         private val MOVIE_DETAIL = MovieDetail(
-            MOVIE_ID,
-            MOVIE_TITLE,
-            MOVIE_TAGLINE,
-            MOVIE_OVERVIEW,
-            3,
-            "Released",
-            1000000,
-            listOf(GENRE),
-            70000,
-            8.0,
-            8,
-            POSTER_URL,
-            "imdb/url",
-            RELEASE_DATE
-
+            id = 1168190,
+            title = MOVIE_TITLE,
+            tagline = MOVIE_TAGLINE,
+            overview = MOVIE_OVERVIEW,
+            runtime = 120,
+            status = "Released",
+            budget = 1000000,
+            genres = listOf(
+                GENRE_ACTION,
+                GENRE_COMEDY,
+                GENRE_CRIME,
+                GENRE_MYSTERY
+            ),
+            revenue = 7000000,
+            voteAverage = 6.424,
+            voteCount = 138,
+            posterUrl = "/gbVwHl4YPSq6BcC92TQpe7qUTh6.jpg",
+            imdbUrl = "https://www.imdb.com/title/tt1168190/",
+            releaseDate = "2026-01-28"
         )
     }
+
 
     @Test
     fun show_movie_details_content() {
@@ -77,12 +79,15 @@ class MovieDetailScreenTest {
         composeRule.onNodeWithText(MOVIE_TITLE).assertIsDisplayed()
         composeRule.onNodeWithText(MOVIE_TAGLINE).assertIsDisplayed()
         composeRule.onNodeWithText(MOVIE_OVERVIEW).assertIsDisplayed()
-        composeRule.onNodeWithText(GENRE.name).assertIsDisplayed()
+        composeRule.onNodeWithText(GENRE_ACTION.name).assertIsDisplayed()
         composeRule.onNodeWithText(context.getString(R.string.rating)).assertIsDisplayed()
 
         composeRule.onNodeWithText(context.getString(R.string.budget)).assertIsDisplayed()
         composeRule.onNodeWithText(context.getString(R.string.revenue)).assertIsDisplayed()
         composeRule.onNodeWithText(context.getString(R.string.runtime)).assertIsDisplayed()
+
+        composeRule.onNodeWithTag("DETAILS_LIST")
+            .performScrollToNode(hasText(context.getString(R.string.release_date)))
         composeRule.onNodeWithText(context.getString(R.string.release_date)).assertIsDisplayed()
 
         composeRule.onNodeWithTag("DETAILS_LIST")
