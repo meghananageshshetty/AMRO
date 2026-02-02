@@ -80,7 +80,7 @@ Architecture: MVVM + Clean Architecture
 
 Networking: Retrofit + OkHttp
 
-Image loading: TBD
+Image loading: Coil
 
 Dependency Injection: Hilt
 
