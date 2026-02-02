@@ -49,6 +49,21 @@ Link to IMDb
 
 -----------------------------------------------------------------------
 
+**Screenshots**
+
+## Screenshots
+
+### Trending 100 Movies Screen
+![Trending Screen](screenshots/AMRO_TRENDING_MOVIE.png)
+
+### Movie Detail Screen
+![Movie Detail](screenshots/AMRO_MOVIE_DETAIL.png)
+
+### Movie Detail Scroll
+![Movie Detail Scroll](screenshots/AMRO_MOVIE_DETAIL_SCROLL.png)
+
+----------------------------------------------------------------------
+
 **Architecture**
 
 The app is built using Clean Architecture principles with MVVM, aiming for:
